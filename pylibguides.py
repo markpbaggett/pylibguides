@@ -4,7 +4,7 @@ import json
 # Get API Key and Build URL String
 f = open('apikey.txt', 'r')
 apikey = f.read()
-fullURL = apikey.rstrip('\n') + '&guide_types=2,3,4&status=1&expand=owner&expand=subjects,owner'
+fullURL = apikey.rstrip('\n') + '&guide_types=2,3,4&status=1&expand=subjects,owner'
 
 req = urlopen(fullURL).read()
 outfile= json.loads(req)
