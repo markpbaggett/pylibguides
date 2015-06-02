@@ -1,14 +1,47 @@
 from urllib2 import urlopen
 import json
+from optparse import OptionParser
 
 # Get API Key and Build URL String
 f = open('apikey.txt', 'r')
 apikey = f.read()
-fullURL = apikey.rstrip('\n') + '&guide_types=2,3,4&status=1&expand=subjects,owner'
+
+# Add Option Parser
+parser = OptionParser()
+parser.add_option("-f", "--from", dest="fromDate", help="harvest records from this date yyyy-mm-dd")
+parser.add_option("-g", "--guides", dest="guideType", help="comma separated list with 1 for General, 2 for Course, 3 for Subject, 4 for Topic, 5 for Internal, and 6 for Template")
+parser.add_option("-s", "--status", dest="status", help="comma delimited list with 0 for Unpublished, 1 for Published, 2 for Private, and 3 for Submit for Review")
+
+(options, args) = parser.parse_args()
+
+if options:
+	guideType = guideStatus = fromDate = ''
+	if options.guideType:
+		guideType = options.guideType
+	if options.fromDate:
+		fromDate = options.fromDate
+	if options.status:
+		guideStatus = options.status
+
+fullURL = apikey.rstrip('\n') #'&guide_types=2,3,4&status=1&expand=subjects,owner'
+
+if guideType:
+	fullURL += '&guide_types=%s' % guideType
+else:
+	fullURL += '&guide_types=%s' % '2,3,4'
+if fromDate:
+	fullURL += '&update_type=since&last_update=%s' % fromDate
+if guideStatus:
+	fullURL += '&status=%s' % guideStatus
+else:
+	fullURL += '&status=%s' % '1'
+
+fullURL += '&expand=subjects,owner'
 
 req = urlopen(fullURL).read()
 outfile= json.loads(req)
 
+print 'Your URL is ' + fullURL
 for record in outfile:
 	if record['description'] != "":
 		print 'Creating record ' + record['id'] + ' for research guide: ' + record['name']
