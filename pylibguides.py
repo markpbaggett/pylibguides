@@ -40,10 +40,11 @@ fullURL += '&expand=subjects,owner'
 
 req = urlopen(fullURL).read()
 outfile= json.loads(req)
+recordCount = 0
 
-print 'Your URL is ' + fullURL
 for record in outfile:
 	if record['description'] != "":
+		recordCount += 1
 		print 'Creating record ' + record['id'] + ' for research guide: ' + record['name']
 		xml = open('temp/' + record['id'] + '.xml'.format(record['id']), 'w')
 		xml.write('<?xml version="1.0" encoding="UTF-8"?>\n')
@@ -66,3 +67,4 @@ for record in outfile:
 		xml.write('\t<dc:format>text/HTML</dc:format>\n')
 		xml.write('</oai_dc:dc>')
 		xml.close()
+print "\nWrote out %d records" % recordCount
