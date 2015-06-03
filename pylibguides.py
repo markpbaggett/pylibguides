@@ -23,7 +23,7 @@ if options:
 	if options.status:
 		guideStatus = options.status
 
-fullURL = apikey.rstrip('\n') #'&guide_types=2,3,4&status=1&expand=subjects,owner'
+fullURL = 'http://lgapi.libapps.com/1.1/guides/?site_id=681&key=' + apikey.rstrip('\n') #'&guide_types=2,3,4&status=1&expand=subjects,owner'
 
 if guideType:
 	fullURL += '&guide_types=%s' % guideType
@@ -67,4 +67,5 @@ for record in outfile:
 		xml.write('\t<dc:format>text/HTML</dc:format>\n')
 		xml.write('</oai_dc:dc>')
 		xml.close()
-print "\nWrote out %d records" % recordCount
+print "\nWrote out %d records\n" % recordCount
+print "Your url was %s \n" % fullURL
