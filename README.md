@@ -5,7 +5,7 @@
 This script uses the LibGuides API to create metadata records for research guides that:
 	
 * are published
-* have a guide type of:
+* have a guide type of (can change this with **option parsing settings**):
 	* course
 	* subject
 	* or topic
@@ -32,7 +32,7 @@ The default settings are:
 The following options are available:
 
 * -h "Shows the help message and exits"
-* -f "Enter a date as yyyy-mm-dd and harvests records from it"
+* -f "Enter a date as yyyy-mm-dd and harvest records updated or created since then"
 * -g "Specify the types of guide you want to return in a comma separated list (1,2,3)"
 	* 1 for General
 	* 2 for Course

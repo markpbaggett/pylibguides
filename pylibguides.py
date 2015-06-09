@@ -71,4 +71,4 @@ for record in outfile:
 		xml.write('\t<dc:format>text/HTML</dc:format>\n')
 		xml.write('</oai_dc:dc>')
 		xml.close()
-print "\nWrote out %d records\n" % recordCount
+print "\nCreated %d records\n" % recordCount
