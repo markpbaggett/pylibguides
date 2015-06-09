@@ -23,7 +23,7 @@ if options:
 	if options.status:
 		guideStatus = options.status
 
-fullURL = 'http://lgapi.libapps.com/1.1/guides/?site_id=681&key=' + apikey.rstrip('\n') #'&guide_types=2,3,4&status=1&expand=subjects,owner'
+fullURL = 'http://lgapi.libapps.com/1.1/guides/?site_id=681&key=' + apikey.rstrip('\n')
 
 if guideType:
 	fullURL += '&guide_types=%s' % guideType
@@ -36,7 +36,7 @@ if guideStatus:
 else:
 	fullURL += '&status=%s' % '1'
 
-fullURL += '&expand=subjects,owner'
+fullURL += '&expand=subjects,owner,tags'
 
 req = urlopen(fullURL).read()
 outfile= json.loads(req)
@@ -60,6 +60,10 @@ for record in outfile:
 			numOfSubs = len(record['subjects'])
 			for x in range(0,numOfSubs):
 				xml.write('\t<dc:subject>' + record['subjects'][x]['name'] + '</dc:subject>\n')
+		if 'tags' in record:
+			numOfTags = len(record['tags'])
+			for x in range(0,numOfTags):
+				xml.write('\t<dc:subject>' + record['tags'][x]['text'] + '</dc:subject>\n')
 		xml.write('\t<dc:date>' + record['modified'] + '</dc:date>\n')
 		xml.write('\t<dc:publisher>The University of Tennessee Libraries, Knoxville</dc:publisher>\n')
 		xml.write('\t<dc:type>text</dc:type>\n')
@@ -68,4 +72,3 @@ for record in outfile:
 		xml.write('</oai_dc:dc>')
 		xml.close()
 print "\nWrote out %d records\n" % recordCount
-print "Your url was %s \n" % fullURL
