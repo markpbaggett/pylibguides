@@ -3,8 +3,7 @@ import json
 from optparse import OptionParser
 
 # Get API Key and Build URL String
-f = open('apikey.txt', 'r')
-apikey = f.read()
+apikey = open('apikey.txt', 'r').read()
 
 # Add Option Parser
 parser = OptionParser()
@@ -46,7 +45,7 @@ for record in outfile:
 	if record['description'] != "":
 		recordCount += 1
 		print 'Creating record ' + record['id'] + ' for research guide: ' + record['name']
-		xml = open('temp/' + record['id'] + '.xml'.format(record['id']), 'w')
+		xml = open('temp/' + record['id'] + '.xml', 'w')
 		xml.write('<?xml version="1.0" encoding="UTF-8"?>\n')
 		xml.write('<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">\n')
 		xml.write('\t<dc:title>' + record['name'] + '</dc:title>\n')
