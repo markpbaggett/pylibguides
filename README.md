@@ -45,3 +45,9 @@ The following options are available:
 	* 1 for Published
 	* 2 for Private
 	* 3 for Submit for Review 
+	
+#### Example:
+
+This is an example of a command that can be executed from the command line.  It overrides the defaults and creates metadata records for all LibGuides created since April 1, 2015 that have the type of course or subject and are published:
+
+	python pylibguides.py -f 2015-04-01 -g 2,3 -s 1
