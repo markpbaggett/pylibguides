@@ -53,7 +53,7 @@ for record in outfile:
 			numOfTags = len(record['tags'])
 			for x in range(0,numOfTags):
 				xml.write('\t<dc:subject>{0}</dc:subject>\n'.format(record['tags'][x]['text']))
-		xml.write('\t<dc:date>{0}</dc:date>\n'.format(record['modified']))
+		xml.write('\t<dc:date>{0}</dc:date>\n'.format(record['updated']))
 		xml.write('\t<dc:publisher>The University of Tennessee Libraries, Knoxville</dc:publisher>\n')
 		xml.write('\t<dc:type>text</dc:type>\n')
 		xml.write('\t<dc:type>interactive</dc:type>\n')
